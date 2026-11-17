@@ -1,0 +1,159 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Резюме Александра Никулина: Python-бэкенд, C++ и системная разработка. Проекты и хакатоны.">
+  <title>Александр Никулин — разработчик ПО</title>
+  <style>
+    :root {
+      color-scheme: light;
+      --ink: #17243a;
+      --muted: #4c5b70;
+      --accent: #194baf;
+      --line: #d9e2ef;
+      --background: #f6f8fc;
+      font-family: "Inter", system-ui, sans-serif;
+      line-height: 1.6;
+      color: var(--ink);
+      background: var(--background);
+    }
+    * { box-sizing: border-box; }
+    body { margin: 0; }
+    a { color: var(--accent); text-underline-offset: .18em; }
+    a:hover { text-decoration-thickness: .13em; }
+    a:focus-visible { outline: 2px solid var(--accent); outline-offset: .22rem; border-radius: .15rem; }
+    .wrap { width: min(100% - 3rem, 65rem); margin-inline: auto; }
+    header { background: #eaf0fb; border-bottom: 1px solid var(--line); padding-block: clamp(2.8rem, 8vw, 6.5rem) clamp(2rem, 5vw, 3.6rem); }
+    h1, h2, h3, p { margin-top: 0; }
+    h1 { font-size: clamp(2.8rem, 7.8vw, 5rem); line-height: 1.04; letter-spacing: -.055em; margin-bottom: 1rem; }
+    .role { font-size: clamp(1.12rem, 3vw, 1.45rem); font-weight: 600; margin-bottom: .55rem; }
+    .contacts { display: flex; flex-wrap: wrap; gap: .25rem 1.1rem; color: var(--muted); margin: 0; }
+    main { display: grid; grid-template-columns: minmax(13rem, 1fr) minmax(0, 2.25fr); gap: clamp(2.5rem, 7vw, 5.25rem); padding-block: clamp(2rem, 6vw, 4.5rem); }
+    section + section { margin-top: 2.25rem; }
+    h2 { font-size: 1.45rem; line-height: 1.2; letter-spacing: -.025em; border-top: 2px solid var(--line); padding-top: .9rem; margin-bottom: 1rem; }
+    h3 { font-size: 1.06rem; line-height: 1.35; margin-bottom: .4rem; }
+    p, ul { margin-bottom: .68rem; }
+    ul { padding-left: 1.2rem; margin-top: 0; }
+    li + li { margin-top: .42rem; }
+    dl { margin: 0; }
+    dt { font-weight: 650; }
+    dd { margin: .1rem 0 .9rem; color: var(--muted); }
+    article + article { border-top: 1px solid var(--line); margin-top: 1.05rem; padding-top: 1.05rem; }
+    article p:last-child, article ul:last-child { margin-bottom: 0; }
+    .resume-nav { display: flex; flex-wrap: wrap; gap: .3rem 1.1rem; margin-top: 1.6rem; }
+    .resume-nav a { font-weight: 580; }
+    @media (max-width: 46rem) {
+      main { grid-template-columns: minmax(0, 1fr); }
+      .wrap { width: min(100% - 2rem, 37rem); }
+    }
+    @media print {
+      :root { background: #fff; color: #000; font-size: 10pt; }
+      header { background: #fff; padding-block: 0 1rem; }
+      h1 { font-size: 29pt; }
+      main { display: block; padding-block: .75rem 0; }
+      .wrap { width: auto; }
+      .resume-nav { display: none; }
+      section + section { margin-top: 1rem; }
+      h2, h3 { break-after: avoid; }
+      article { break-inside: avoid; }
+      .primary { margin-top: 1rem; }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="wrap">
+      <h1>Александр Никулин</h1>
+      <p class="role">Разработчик ПО · стажировка</p>
+      <p class="contacts">
+        <span>Москва</span>
+        <a href="mailto:alexmoader@yandex.ru">alexmoader@yandex.ru</a>
+        <a href="https://t.me/alexmoader">Telegram @alexmoader</a>
+        <a href="https://github.com/alexmoader">GitHub</a>
+      </p>
+      <nav class="resume-nav" aria-label="Разделы резюме">
+        <a href="#projects">Проекты</a>
+        <a href="#hackathons">Хакатоны</a>
+        <a href="#education">Образование и достижения</a>
+      </nav>
+    </div>
+  </header>
+  <main class="wrap">
+    <div>
+      <section aria-labelledby="about">
+        <h2 id="about">Обо мне</h2>
+        <p>Учусь на втором курсе «Программной инженерии» в НИУ ВШЭ. Ищу стажировку в Python-бэкенде, C++ или системной разработке. Пишу веб-прототипы на FastAPI, реализую алгоритмы на C++ и применяю машинное обучение в проектах на хакатонах.</p>
+      </section>
+      <section aria-labelledby="skills">
+        <h2 id="skills">Технические навыки</h2>
+        <dl>
+          <dt>Python и бэкенд</dt>
+          <dd>Python, FastAPI, REST API, SQL, SQLite, PostgreSQL, pytest.</dd>
+          <dt>C++ и системная разработка</dt>
+          <dd>C++, C, алгоритмы и структуры данных, Linux, POSIX IPC, CMake, Google Benchmark, Catch2.</dd>
+          <dt>Прикладной ML</dt>
+          <dd>Подготовка признаков, обучение и валидация моделей, LightGBM, CatBoost.</dd>
+          <dt>Инструменты</dt>
+          <dd>Git, Docker, Docker Compose. Учебный опыт с C# и .NET.</dd>
+        </dl>
+      </section>
+    </div>
+    <div class="primary">
+      <section aria-labelledby="projects">
+        <h2 id="projects">Проекты</h2>
+        <article>
+          <h3>Прототип анализа текста на Python и FastAPI</h3>
+          <p>Разработал веб-прототип, который выделяет информацию из текста и распределяет её по заданным категориям.</p>
+        </article>
+        <article>
+          <h3>Трассировка лучей — учебный проект на C++</h3>
+          <ul>
+            <li>Реализовал рендеринг 3D-сцен из файлов OBJ и MTL, пересечения лучей со сферами и треугольниками, освещение, тени, рекурсивные отражения и преломление.</li>
+            <li>Добавил режимы визуализации глубины и нормалей. В проекте есть тесты сравнения с эталонными изображениями, включая сцену Cornell Box.</li>
+          </ul>
+        </article>
+        <article>
+          <h3>Гибридная сортировка — исследование производительности на C++</h3>
+          <ul>
+            <li>Реализовал гибрид сортировки слиянием и вставками. С помощью Google Benchmark сравнил три алгоритма на случайных, обратно отсортированных и почти отсортированных массивах.</li>
+            <li>На случайном массиве из 16 384 элементов медианное время CPU в одной серии замеров составило <strong>0,81 мс у гибрида и 1,02 мс у сортировки слиянием</strong>.</li>
+          </ul>
+        </article>
+        <article>
+          <h3>Другие учебные проекты</h3>
+          <ul>
+            <li><strong>Ассемблер и эмулятор на C++17.</strong> Реализовал перевод инструкций в бинарный файл и их исполнение на модели процессора с 16 регистрами. Настроил сборку через CMake.</li>
+            <li><strong>WAV-процессор на C++.</strong> Разработал консольную утилиту для чтения и записи PCM WAV и последовательного применения фильтров. В проекте есть тесты на Catch2.</li>
+            <li><strong>Многопроцессный симулятор порта на C.</strong> Организовал обмен состоянием через разделяемую память POSIX и синхронизацию через семафоры.</li>
+            <li><strong>Сборка Linux-пакетов.</strong> Описал в Dockerfile сборку DEB- и RPM-пакетов для модулей TeX Live и проверку их установки в контейнерах.</li>
+          </ul>
+        </article>
+      </section>
+      <section aria-labelledby="hackathons">
+        <h2 id="hackathons">Хакатоны</h2>
+        <article>
+          <h3>CosmoHack 2026 — CosmoFire</h3>
+          <p>Самостоятельно реализовал решение для мониторинга лесных пожаров по спутниковым данным. Подготовил признаки, обучил модели LightGBM, разработал API на FastAPI и интерактивную карту на Leaflet. Разделил выборки по событиям пожара, чтобы фрагменты одного события не попадали одновременно в обучение и валидацию. <a href="https://github.com/alexmoader/CosmoHack">Код CosmoFire</a></p>
+        </article>
+        <article>
+          <h3>«Точка сборки» 2026 — кейс DBI</h3>
+          <p>Вместе с напарником разработал прототип голосового автоответчика для клиники. Прототип связывал телефонный канал SIP/Asterisk с логикой диалога и сервисом записи на приём. Команда заняла <strong>11-е место на отборе</strong>. Всего в хакатоне участвовало 120 команд.</p>
+        </article>
+        <article>
+          <h3>«Градиент роста» — прогнозирование розничной выручки</h3>
+          <p>В команде из двух человек подбирал признаки из истории продаж и характеристик магазинов, сравнивал CatBoost, LightGBM и линейные модели. В итоговом решении использовали ансамбль прогнозов с поправкой на основе Huber-регрессии. <a href="https://github.com/alexmoader/GradientRostaHack">Код проекта</a></p>
+        </article>
+      </section>
+      <section aria-labelledby="education">
+        <h2 id="education">Образование и достижения</h2>
+        <ul>
+          <li><strong>НИУ ВШЭ</strong> — бакалавриат «Программная инженерия», 2-й курс.</li>
+          <li><strong>Победитель конкурса «Большие вызовы» (Сириус)</strong> с проектом по моделированию динамики космического мусора. <a href="https://github.com/alexmoader/My-first-big-project">Код проекта</a></li>
+          <li><strong>Английский</strong> — сертификат об окончании программы Upper-Intermediate, апрель 2026.</li>
+        </ul>
+      </section>
+    </div>
+  </main>
+</body>
+</html>
