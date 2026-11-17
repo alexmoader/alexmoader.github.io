@@ -3,92 +3,266 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="description" content="Резюме Александра Никулина: Python-бэкенд, C++ и системная разработка. Проекты и хакатоны.">
-  <title>Александр Никулин — разработчик ПО</title>
+  <meta name="description" content="Резюме Александра Никулина. Python-бэкенд, C++ и системная разработка.">
+  <title>Александр Никулин — разработчик Python и C++</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Golos+Text:wght@400..700&amp;display=swap">
   <style>
     :root {
       color-scheme: light;
-      --ink: #17243a;
-      --muted: #4c5b70;
-      --accent: #194baf;
-      --line: #d9e2ef;
-      --background: #f6f8fc;
-      font-family: "Golos Text", system-ui, sans-serif;
-      line-height: 1.6;
+      --paper: #f7f7f4;
+      --ink: #000;
+      --orange: #ff4d00;
+      --blue: #1b4dff;
+      --border: 3px solid var(--ink);
+      --shadow: 6px 6px 0 var(--ink);
+      --heading-offset: 4.75rem;
+      background: var(--paper);
       color: var(--ink);
-      background: var(--background);
+      font: 1rem/1.55 "Golos Text", system-ui, sans-serif;
     }
-    * { box-sizing: border-box; }
-    body { margin: 0; }
-    a { color: var(--accent); text-underline-offset: .18em; }
-    a:hover { text-decoration-thickness: .13em; }
-    a:focus-visible { outline: 2px solid var(--accent); outline-offset: .22rem; border-radius: .15rem; }
-    .wrap { width: min(100% - 3rem, 65rem); margin-inline: auto; }
-    header { background: #eaf0fb; border-bottom: 1px solid var(--line); padding-block: clamp(2.8rem, 8vw, 6.5rem) clamp(2rem, 5vw, 3.6rem); }
-    h1, h2, h3, p { margin-top: 0; }
-    h1 { font-size: clamp(2.8rem, 7.8vw, 5rem); line-height: 1.04; letter-spacing: -.055em; margin-bottom: 1rem; }
-    .role { font-size: clamp(1.12rem, 3vw, 1.45rem); font-weight: 600; margin-bottom: .55rem; }
-    .contacts { display: flex; flex-wrap: wrap; gap: .25rem 1.1rem; color: var(--muted); margin: 0; }
-    main { display: grid; grid-template-columns: minmax(13rem, 1fr) minmax(0, 2.25fr); gap: clamp(2.5rem, 7vw, 5.25rem); padding-block: clamp(2rem, 6vw, 4.5rem); }
-    section + section { margin-top: 2.25rem; }
-    h2 { font-size: 1.45rem; line-height: 1.2; letter-spacing: -.025em; border-top: 2px solid var(--line); padding-top: .9rem; margin-bottom: 1rem; }
-    h3 { font-size: 1.06rem; line-height: 1.35; margin-bottom: .4rem; }
-    p, ul { margin-bottom: .68rem; }
-    ul { padding-left: 1.2rem; margin-top: 0; }
-    li + li { margin-top: .42rem; }
-    dl { margin: 0; }
+
+    *, *::before, *::after { box-sizing: border-box; }
+    [hidden] { display: none !important; }
+    body, h1, h2, h3, p, dl { margin: 0; }
+    h1, h2, h3 { line-height: 1.18; text-wrap: balance; }
+    p + p, ul { margin-top: .65rem; }
+    ul { margin-bottom: 0; padding-left: 1.25rem; }
+    li + li { margin-top: .4rem; }
+    a { color: inherit; text-decoration-thickness: 2px; text-underline-offset: .15em; }
+    a:hover { text-decoration-color: var(--blue); }
+    a:focus-visible, summary:focus-visible { outline: 3px solid var(--blue); outline-offset: 3px; }
+    [id] { scroll-margin-top: var(--heading-offset); }
+
+    .skip {
+      position: fixed;
+      top: .6rem;
+      left: .6rem;
+      z-index: 10;
+      translate: 0 -160%;
+      padding: .45rem .75rem;
+      background: var(--orange);
+      border: var(--border);
+    }
+    .skip:focus { translate: 0; }
+    .label, .nav a, .tabs a, .action {
+      font-size: .8rem;
+      font-weight: 650;
+      letter-spacing: .07em;
+      text-transform: uppercase;
+    }
+    .shell { display: grid; grid-template-columns: 15rem minmax(0, 1fr); }
+    .sidebar {
+      position: sticky;
+      top: 0;
+      align-self: start;
+      height: 100dvh;
+      overflow: auto;
+      background: #fff;
+      border-right: var(--border);
+    }
+    .brand {
+      display: block;
+      padding: 1.2rem 1rem;
+      border-bottom: var(--border);
+      font-size: 1.05rem;
+      font-weight: 700;
+      line-height: 1.2;
+      letter-spacing: -.015em;
+      text-decoration: none;
+      text-transform: uppercase;
+    }
+    .nav { display: grid; gap: .25rem; padding: 1rem .75rem; }
+    .nav a {
+      display: flex;
+      align-items: center;
+      gap: .55rem;
+      padding: .45rem .5rem;
+      border: 3px solid transparent;
+      border-radius: 4px;
+      text-decoration: none;
+    }
+    .nav a::before {
+      content: "";
+      width: .56rem;
+      height: .56rem;
+      flex: 0 0 auto;
+      border: 2px solid var(--ink);
+    }
+    .nav a:hover { border-color: var(--ink); }
+    .nav a[aria-current] { border-color: var(--ink); background: var(--orange); box-shadow: 2px 2px 0 var(--ink); }
+    .nav a[aria-current]::before { background: var(--ink); }
+    .top {
+      position: sticky;
+      top: 0;
+      z-index: 3;
+      display: flex;
+      align-items: center;
+      gap: .8rem;
+      min-height: 3.5rem;
+      padding: .55rem clamp(1rem, 2.7vw, 2rem);
+      background: #fff;
+      border-bottom: var(--border);
+    }
+    .top a { text-decoration: none; }
+    .mobile-menu { display: none; position: relative; }
+    .mobile-menu summary { cursor: pointer; }
+    .mobile-menu .nav {
+      position: absolute;
+      top: calc(100% + .55rem);
+      left: 0;
+      width: 12rem;
+      border: var(--border);
+      border-radius: 4px;
+      background: #fff;
+      box-shadow: var(--shadow);
+    }
+    main { padding: 1.4rem clamp(1rem, 2.7vw, 2rem) 4rem; }
+    .container { max-width: 67.5rem; margin-inline: auto; }
+    .card { min-width: 0; background: #fff; border: var(--border); border-radius: 4px; box-shadow: var(--shadow); }
+    .profile { overflow: hidden; }
+    .cover { height: clamp(7rem, 14vw, 10.5rem); border-bottom: var(--border); }
+    .cover svg { display: block; width: 100%; height: 100%; }
+    .profile-body {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+      gap: .9rem 1.75rem;
+      padding: clamp(1rem, 2.8vw, 1.65rem);
+    }
+    h1 { font-size: clamp(1.8rem, 4vw, 2.65rem); font-weight: 700; letter-spacing: -.03em; text-transform: uppercase; }
+    .role { margin-top: .35rem; font-size: 1.1rem; font-weight: 650; }
+    .contacts { display: flex; align-items: center; flex-wrap: wrap; gap: .45rem .75rem; }
+    .contacts a, .contacts span { overflow-wrap: anywhere; }
+    .action {
+      display: inline-block;
+      padding: .42rem .65rem;
+      border: var(--border);
+      border-radius: 4px;
+      box-shadow: 3px 3px 0 var(--ink);
+      text-decoration: none;
+      text-transform: none;
+      letter-spacing: .01em;
+    }
+    .action:first-of-type { background: var(--orange); }
+    .action:active { translate: 1px 1px; box-shadow: 2px 2px 0 var(--ink); }
+    .tabs { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); margin-block: 1.3rem; }
+    .tabs a { padding: .7rem .3rem; text-align: center; text-decoration: none; }
+    .tabs a + a { border-left: var(--border); }
+    .tabs a:hover { text-decoration: underline; }
+    .tabs a[aria-current] { background: var(--orange); }
+    .entries { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 1rem; }
+    .entry { padding: 1rem 1.15rem; overflow-wrap: anywhere; }
+    .overview .entry:first-child, .entries > .entry:last-child:nth-child(odd) { grid-column: 1 / -1; }
+    .entry h2, .entry h3 { margin-bottom: .65rem; padding-bottom: .55rem; border-bottom: var(--border); }
+    .entry h2, .entry h3 { font-size: 1.07rem; }
+    .panel + .panel { margin-top: 1.4rem; }
+    .panel-title { margin-bottom: .85rem; font-size: 1.35rem; }
     dt { font-weight: 650; }
-    dd { margin: .1rem 0 .9rem; color: var(--muted); }
-    article + article { border-top: 1px solid var(--line); margin-top: 1.05rem; padding-top: 1.05rem; }
-    article p:last-child, article ul:last-child { margin-bottom: 0; }
-    .resume-nav { display: flex; flex-wrap: wrap; gap: .3rem 1.1rem; margin-top: 1.6rem; }
-    .resume-nav a { font-weight: 580; }
-    @media (max-width: 46rem) {
-      main { grid-template-columns: minmax(0, 1fr); }
-      .wrap { width: min(100% - 2rem, 37rem); }
+    dd { margin: .1rem 0 .65rem; }
+    dd:last-child { margin-bottom: 0; }
+
+    @media (max-width: 64rem) {
+      .shell { display: block; }
+      .sidebar { display: none; }
+      .mobile-menu { display: block; }
+    }
+    @media (max-width: 40rem) {
+      .entries { grid-template-columns: 1fr; }
+      .profile-body { align-items: flex-start; flex-direction: column; }
+      .tabs a { font-size: .72rem; letter-spacing: .025em; }
     }
     @media print {
-      :root { background: #fff; color: #000; font-size: 10pt; }
-      header { background: #fff; padding-block: 0 1rem; }
-      h1 { font-size: 29pt; }
-      main { display: block; padding-block: .75rem 0; }
-      .wrap { width: auto; }
-      .resume-nav { display: none; }
-      section + section { margin-top: 1rem; }
-      h2, h3 { break-after: avoid; }
-      article { break-inside: avoid; }
-      .primary { margin-top: 1rem; }
+      :root { background: #fff; font-size: 10pt; }
+      .shell, .entries { display: block; }
+      .sidebar, .top, .cover, .tabs, .skip { display: none !important; }
+      main, .profile-body { padding: 0; }
+      .contacts { margin-top: .5rem; }
+      .contacts a { padding: 0; }
+      .card, .contacts a { border: 0; box-shadow: none; }
+      .panel[hidden] { display: block !important; }
+      .panel-title { margin: 1rem 0 .3rem; }
+      .entry { padding: .35rem 0; break-inside: avoid; }
+      .entry h2, .entry h3 { border-width: 1px; }
     }
   </style>
 </head>
 <body>
-  <header>
-    <div class="wrap">
-      <h1>Александр Никулин</h1>
-      <p class="role">Разработчик ПО · стажировка</p>
-      <p class="contacts">
-        <span>Москва</span>
-        <a href="mailto:alexmoader@yandex.ru">alexmoader@yandex.ru</a>
-        <a href="https://t.me/alexmoader">Telegram @alexmoader</a>
-        <a href="https://github.com/alexmoader">GitHub</a>
-      </p>
-      <nav class="resume-nav" aria-label="Разделы резюме">
-        <a href="#projects">Проекты</a>
-        <a href="#hackathons">Хакатоны</a>
-        <a href="#education">Образование и достижения</a>
+  <a class="skip" href="#main">К содержанию</a>
+  <div class="shell">
+    <aside class="sidebar">
+      <a class="brand" href="#home">Александр Никулин</a>
+      <nav class="nav" aria-label="Разделы резюме">
+        <a href="#home">Обзор</a>
+          <a href="#projects">Проекты</a>
+          <a href="#hackathons">Хакатоны</a>
       </nav>
-    </div>
-  </header>
-  <main class="wrap">
+    </aside>
     <div>
-      <section aria-labelledby="about">
-        <h2 id="about">Обо мне</h2>
-        <p>Учусь на втором курсе «Программной инженерии» в НИУ ВШЭ. Ищу стажировку в Python-бэкенде, C++ или системной разработке. Пишу веб-прототипы на FastAPI, реализую алгоритмы на C++ и применяю машинное обучение в проектах на хакатонах.</p>
-      </section>
-      <section aria-labelledby="skills">
-        <h2 id="skills">Технические навыки</h2>
-        <dl>
+      <header class="top">
+        <details class="mobile-menu">
+          <summary class="label">Меню</summary>
+          <nav class="nav" aria-label="Разделы резюме на мобильном">
+            <a href="#home">Обзор</a>
+          <a href="#projects">Проекты</a>
+          <a href="#hackathons">Хакатоны</a>
+          </nav>
+        </details>
+        <a class="label" href="#home">Резюме</a>
+      </header>
+      <main id="main">
+        <div class="container">
+          <section class="card profile" aria-labelledby="profile-name">
+            <div class="cover" aria-hidden="true"><svg viewBox="0 0 1200 220" preserveAspectRatio="xMidYMid slice" aria-hidden="true" focusable="false">
+<rect width="1200" height="220" fill="#FFFFFF"/>
+<g fill="none" stroke="#FF4D00" stroke-width="5">
+<circle cx="150" cy="110" r="76"/>
+<circle cx="150" cy="110" r="44"/>
+</g>
+<g fill="none" stroke="#1B4DFF" stroke-width="5">
+<path d="M330 220 420 0"/>
+<path d="M420 220 510 0"/>
+<path d="M510 220 600 0"/>
+</g>
+<g fill="none" stroke="#000000" stroke-width="5">
+<path d="M700 220a130 130 0 0 1 260 0"/>
+<path d="M760 220a70 70 0 0 1 140 0"/>
+</g>
+<g fill="#000000">
+<rect x="1052" y="80" width="26" height="26"/>
+<rect x="1096" y="124" width="16" height="16"/>
+</g>
+<g fill="none" stroke="#FF4D00" stroke-width="5">
+<path d="M860 40h60M860 56h32"/>
+</g>
+</svg></div>
+            <div class="profile-body">
+              <div>
+                <h1 id="profile-name">Александр Никулин</h1>
+                <p class="role">Разработчик Python и C++ · стажировка</p>
+              </div>
+              <address class="contacts" style="font-style: normal"><span>Москва</span>
+        <a class="action" href="mailto:alexmoader@yandex.ru">alexmoader@yandex.ru</a>
+        <a class="action" href="https://t.me/alexmoader">Telegram @alexmoader</a>
+        <a class="action" href="https://github.com/alexmoader">GitHub</a></address>
+            </div>
+          </section>
+          <nav class="card tabs" aria-label="Быстрый переход">
+            <a href="#home">Обзор</a>
+          <a href="#projects">Проекты</a>
+          <a href="#hackathons">Хакатоны</a>
+          </nav>
+          <section class="panel" id="home" aria-label="Обзор">
+            <div class="entries overview">
+              <article class="card entry">
+                <h2>Обо мне</h2>
+                <p>Учусь на втором курсе «Программной инженерии» в НИУ ВШЭ. Ищу стажировку в бэкенде или системной разработке. Пишу веб-прототипы на FastAPI, реализую алгоритмы на C++ и применяю машинное обучение в проектах на хакатонах.</p>
+              </article>
+              <article class="card entry">
+                <h2>Технические навыки</h2>
+                <dl>
           <dt>Python и бэкенд</dt>
           <dd>Python, FastAPI, REST API, SQL, SQLite, PostgreSQL, pytest.</dd>
           <dt>C++ и системная разработка</dt>
@@ -98,30 +272,31 @@
           <dt>Инструменты</dt>
           <dd>Git, Docker, Docker Compose. Учебный опыт с C# и .NET.</dd>
         </dl>
-      </section>
-    </div>
-    <div class="primary">
-      <section aria-labelledby="projects">
-        <h2 id="projects">Проекты</h2>
-        <article>
+              </article>
+              <article class="card entry" id="education">
+                <h2>Образование и достижения</h2>
+                <ul>
+          <li><strong>НИУ ВШЭ</strong> — бакалавриат «Программная инженерия», 2-й курс.</li>
+          <li><strong>Победитель конкурса «Большие вызовы» (Сириус)</strong> с проектом по моделированию динамики космического мусора. <a href="https://github.com/alexmoader/My-first-big-project">Код проекта</a></li>
+          <li><strong>Английский</strong> — сертификат об окончании программы Upper-Intermediate, апрель 2026.</li>
+        </ul>
+              </article>
+            </div>
+          </section>
+          <section class="panel" id="projects" aria-labelledby="projects-title">
+            <h2 class="panel-title" id="projects-title">Проекты</h2>
+            <div class="entries"><article class="card entry">
           <h3>Прототип анализа текста на Python и FastAPI</h3>
           <p>Разработал веб-прототип, который выделяет информацию из текста и распределяет её по заданным категориям.</p>
         </article>
-        <article>
+        <article class="card entry">
           <h3>Трассировка лучей — учебный проект на C++</h3>
           <ul>
             <li>Реализовал рендеринг 3D-сцен из файлов OBJ и MTL, пересечения лучей со сферами и треугольниками, освещение, тени, рекурсивные отражения и преломление.</li>
             <li>Добавил режимы визуализации глубины и нормалей. В проекте есть тесты сравнения с эталонными изображениями, включая сцену Cornell Box.</li>
           </ul>
         </article>
-        <article>
-          <h3>Гибридная сортировка — исследование производительности на C++</h3>
-          <ul>
-            <li>Реализовал гибрид сортировки слиянием и вставками. С помощью Google Benchmark сравнил три алгоритма на случайных, обратно отсортированных и почти отсортированных массивах.</li>
-            <li>На случайном массиве из 16 384 элементов медианное время CPU в одной серии замеров составило <strong>0,81 мс у гибрида и 1,02 мс у сортировки слиянием</strong>.</li>
-          </ul>
-        </article>
-        <article>
+        <article class="card entry">
           <h3>Другие учебные проекты</h3>
           <ul>
             <li><strong>Ассемблер и эмулятор на C++17.</strong> Реализовал перевод инструкций в бинарный файл и их исполнение на модели процессора с 16 регистрами. Настроил сборку через CMake.</li>
@@ -129,32 +304,53 @@
             <li><strong>Многопроцессный симулятор порта на C.</strong> Организовал обмен состоянием через разделяемую память POSIX и синхронизацию через семафоры.</li>
             <li><strong>Сборка Linux-пакетов.</strong> Описал в Dockerfile сборку DEB- и RPM-пакетов для модулей TeX Live и проверку их установки в контейнерах.</li>
           </ul>
-        </article>
-      </section>
-      <section aria-labelledby="hackathons">
-        <h2 id="hackathons">Хакатоны</h2>
-        <article>
+        </article></div>
+          </section>
+          <section class="panel" id="hackathons" aria-labelledby="hackathons-title">
+            <h2 class="panel-title" id="hackathons-title">Хакатоны</h2>
+            <div class="entries"><article class="card entry">
           <h3>CosmoHack 2026 — CosmoFire</h3>
           <p>Самостоятельно реализовал решение для мониторинга лесных пожаров по спутниковым данным. Подготовил признаки, обучил модели LightGBM, разработал API на FastAPI и интерактивную карту на Leaflet. Разделил выборки по событиям пожара, чтобы фрагменты одного события не попадали одновременно в обучение и валидацию. <a href="https://github.com/alexmoader/CosmoHack">Код CosmoFire</a></p>
         </article>
-        <article>
+        <article class="card entry">
           <h3>«Точка сборки» 2026 — кейс DBI</h3>
           <p>Вместе с напарником разработал прототип голосового автоответчика для клиники. Прототип связывал телефонный канал SIP/Asterisk с логикой диалога и сервисом записи на приём. Команда заняла <strong>11-е место на отборе</strong>. Всего в хакатоне участвовало 120 команд.</p>
         </article>
-        <article>
+        <article class="card entry">
           <h3>«Градиент роста» — прогнозирование розничной выручки</h3>
           <p>В команде из двух человек подбирал признаки из истории продаж и характеристик магазинов, сравнивал CatBoost, LightGBM и линейные модели. В итоговом решении использовали ансамбль прогнозов с поправкой на основе Huber-регрессии. <a href="https://github.com/alexmoader/GradientRostaHack">Код проекта</a></p>
-        </article>
-      </section>
-      <section aria-labelledby="education">
-        <h2 id="education">Образование и достижения</h2>
-        <ul>
-          <li><strong>НИУ ВШЭ</strong> — бакалавриат «Программная инженерия», 2-й курс.</li>
-          <li><strong>Победитель конкурса «Большие вызовы» (Сириус)</strong> с проектом по моделированию динамики космического мусора. <a href="https://github.com/alexmoader/My-first-big-project">Код проекта</a></li>
-          <li><strong>Английский</strong> — сертификат об окончании программы Upper-Intermediate, апрель 2026.</li>
-        </ul>
-      </section>
+        </article></div>
+          </section>
+        </div>
+      </main>
     </div>
-  </main>
+  </div>
+  <script>
+    const panels = Array.from(document.querySelectorAll(".panel"));
+    const navLinks = document.querySelectorAll(".nav a, .tabs a");
+    const menu = document.querySelector(".mobile-menu");
+
+    function showSection() {
+      const target = document.getElementById(location.hash.slice(1));
+      const active = target?.closest(".panel") ?? panels[0];
+      for (const panel of panels) panel.hidden = panel !== active;
+      for (const link of navLinks) {
+        if (link.hash === "#" + active.id) link.setAttribute("aria-current", "location");
+        else link.removeAttribute("aria-current");
+      }
+      if (target && active.contains(target)) target.scrollIntoView();
+    }
+
+    menu.addEventListener("click", (event) => {
+      if (event.target.closest("a")) menu.open = false;
+    });
+    menu.addEventListener("keydown", (event) => {
+      if (event.key !== "Escape" || !menu.open) return;
+      menu.open = false;
+      menu.querySelector("summary").focus();
+    });
+    window.addEventListener("hashchange", showSection);
+    showSection();
+  </script>
 </body>
 </html>
