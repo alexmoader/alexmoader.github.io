@@ -18,7 +18,6 @@
       --border: 3px solid var(--ink);
       --shadow: 6px 6px 0 var(--ink);
       --bar-height: 3.5rem;
-      --sidebar-width: 15rem;
       --heading-offset: 4.75rem;
       background: var(--paper);
       color: var(--ink);
@@ -54,7 +53,7 @@
       letter-spacing: .07em;
       text-transform: uppercase;
     }
-    .shell { display: grid; grid-template-columns: var(--sidebar-width) minmax(0, 1fr); }
+    .shell { display: grid; grid-template-columns: 15rem minmax(0, 1fr); }
     .sidebar {
       position: sticky;
       top: 0;
@@ -122,28 +121,7 @@
       background: #fff;
       box-shadow: var(--shadow);
     }
-    main {
-      isolation: isolate;
-      padding: 1.4rem clamp(1rem, 2.7vw, 2rem) 4rem;
-    }
-    .background-squares {
-      position: fixed;
-      inset: var(--bar-height) 0 0 var(--sidebar-width);
-      z-index: -1;
-      overflow: hidden;
-      pointer-events: none;
-      --gutter: clamp(.32rem, 1vw, 1.15rem);
-    }
-    .background-squares span {
-      position: absolute;
-      inset-block-start: var(--position);
-      inline-size: var(--size);
-      aspect-ratio: 1;
-      opacity: var(--shade, .15);
-      background: var(--ink);
-    }
-    .background-squares span:nth-child(odd) { inset-inline-start: var(--gutter); --drift: 4px; }
-    .background-squares span:nth-child(even) { inset-inline-end: var(--gutter); --drift: -4px; }
+    main { padding: 1.4rem clamp(1rem, 2.7vw, 2rem) 4rem; }
     .container { max-width: 67.5rem; margin-inline: auto; }
     .card { min-width: 0; background: #fff; border: var(--border); border-radius: 4px; box-shadow: var(--shadow); }
     .profile { overflow: hidden; }
@@ -202,19 +180,14 @@
       .nav a, .tabs a { transition: background-color 140ms ease-out; }
       .entry a { transition: text-decoration-color 140ms ease-out; }
       .panel-entering { animation: panel-fade-in 170ms ease-out; }
-      .background-squares span { animation: square-drift var(--period) ease-in-out var(--offset) infinite alternate; }
     }
     @keyframes panel-fade-in {
       from { opacity: .92; }
       to { opacity: 1; }
     }
-    @keyframes square-drift {
-      from { transform: translateY(0) rotate(-7deg); }
-      to { transform: translate(var(--drift), var(--rise)) rotate(12deg); }
-    }
 
     @media (max-width: 64rem) {
-      .shell { display: block; --sidebar-width: 0rem; }
+      .shell { display: block; }
       .sidebar { display: none; }
       .mobile-menu { display: block; }
     }
@@ -222,13 +195,11 @@
       .entries { grid-template-columns: 1fr; }
       .profile-body { align-items: flex-start; flex-direction: column; }
       .tabs a { font-size: .72rem; letter-spacing: .025em; }
-      .background-squares span { scale: .75; }
-      .background-squares span:nth-child(n + 5) { display: none; }
     }
     @media print {
       :root { background: #fff; font-size: 10pt; }
       .shell, .entries { display: block; }
-      .sidebar, .top, .cover, .tabs, .skip, .background-squares { display: none !important; }
+      .sidebar, .top, .cover, .tabs, .skip { display: none !important; }
       main, .profile-body { padding: 0; }
       .contacts { margin-top: .5rem; }
       .contacts a { padding: 0; }
@@ -265,16 +236,6 @@
         <a class="label" href="#home">Резюме</a>
       </header>
       <main id="main">
-        <div class="background-squares" aria-hidden="true">
-          <span style="--position: 13%; --size: 8px; --period: 16s; --offset: -5s; --rise: 10px"></span>
-          <span style="--position: 24%; --size: 11px; --period: 20s; --offset: -12s; --rise: -11px"></span>
-          <span style="--position: 58%; --size: 10px; --period: 19s; --offset: -7s; --rise: -13px"></span>
-          <span style="--position: 71%; --size: 7px; --period: 17s; --offset: -3s; --rise: 9px"></span>
-          <span style="--position: 33%; --size: 5px; --period: 13s; --offset: -7s; --rise: 8px; --shade: .21"></span>
-          <span style="--position: 48%; --size: 6px; --period: 15s; --offset: -4s; --rise: 7px; --shade: .2"></span>
-          <span style="--position: 83%; --size: 6px; --period: 21s; --offset: -15s; --rise: 12px"></span>
-          <span style="--position: 89%; --size: 9px; --period: 18s; --offset: -8s; --rise: -8px"></span>
-        </div>
         <div class="container">
           <section class="card profile" aria-labelledby="profile-name">
             <div class="cover" aria-hidden="true"><svg viewBox="0 0 1200 220" preserveAspectRatio="xMidYMid slice" aria-hidden="true" focusable="false">
