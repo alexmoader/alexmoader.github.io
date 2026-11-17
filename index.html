@@ -150,7 +150,7 @@
       letter-spacing: .01em;
     }
     .action:first-of-type { background: var(--orange); }
-    .action:active { translate: 1px 1px; box-shadow: 2px 2px 0 var(--ink); }
+    .action:active { box-shadow: 2px 2px 0 var(--ink); }
     .tabs { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); margin-block: 1.3rem; }
     .tabs a { padding: .7rem .3rem; text-align: center; text-decoration: none; }
     .tabs a + a { border-left: var(--border); }
@@ -158,6 +158,7 @@
     .tabs a[aria-current] { background: var(--orange); }
     .entries { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 1rem; }
     .entry { padding: 1rem 1.15rem; overflow-wrap: anywhere; }
+    .entry a:focus-visible { text-decoration-color: var(--blue); }
     .overview .entry:first-child, .entries:not(.overview) > .entry:last-child:nth-child(odd) { grid-column: 1 / -1; }
     .entry h2, .entry h3 { margin-bottom: .65rem; padding-bottom: .55rem; border-bottom: var(--border); }
     .entry h2, .entry h3 { font-size: 1.07rem; }
@@ -166,6 +167,17 @@
     dt { font-weight: 650; }
     dd { margin: .1rem 0 .65rem; }
     dd:last-child { margin-bottom: 0; }
+
+    @media screen and (prefers-reduced-motion: no-preference) {
+      .action { transition: translate 120ms ease-out, box-shadow 120ms ease-out; }
+      .action:active { translate: 1px 1px; }
+      .entry a { transition: text-decoration-color 140ms ease-out; }
+      .panel-entering { animation: panel-fade-in 170ms ease-out; }
+    }
+    @keyframes panel-fade-in {
+      from { opacity: .45; }
+      to { opacity: 1; }
+    }
 
     @media (max-width: 64rem) {
       .shell { display: block; }
@@ -332,11 +344,17 @@
     const panels = Array.from(document.querySelectorAll(".panel"));
     const navLinks = document.querySelectorAll(".nav a, .tabs a");
     const menu = document.querySelector(".mobile-menu");
+    let currentPanel = null;
 
     function showSection() {
       const target = document.getElementById(location.hash.slice(1));
       const active = target?.closest(".panel") ?? panels[0];
-      for (const panel of panels) panel.hidden = panel !== active;
+      const changed = currentPanel !== null && active !== currentPanel;
+      for (const panel of panels) {
+        panel.hidden = panel !== active;
+        panel.classList.toggle("panel-entering", changed && panel === active);
+      }
+      currentPanel = active;
       for (const link of navLinks) {
         if (link.hash === "#" + active.id) link.setAttribute("aria-current", "location");
         else link.removeAttribute("aria-current");
