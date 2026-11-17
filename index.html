@@ -17,6 +17,7 @@
       --blue: #1b4dff;
       --border: 3px solid var(--ink);
       --shadow: 6px 6px 0 var(--ink);
+      --bar-height: 3.5rem;
       --heading-offset: 4.75rem;
       background: var(--paper);
       color: var(--ink);
@@ -63,8 +64,10 @@
       border-right: var(--border);
     }
     .brand {
-      display: block;
-      padding: 1.2rem 1rem;
+      display: flex;
+      align-items: center;
+      min-height: var(--bar-height);
+      padding-inline: 1rem;
       border-bottom: var(--border);
       font-size: 1.05rem;
       font-weight: 700;
@@ -100,7 +103,7 @@
       display: flex;
       align-items: center;
       gap: .8rem;
-      min-height: 3.5rem;
+      min-height: var(--bar-height);
       padding: .55rem clamp(1rem, 2.7vw, 2rem);
       background: #fff;
       border-bottom: var(--border);
