@@ -151,7 +151,12 @@
     }
     .action:first-of-type { background: var(--orange); }
     .action:active { box-shadow: 2px 2px 0 var(--ink); }
-    .tabs { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); margin-block: 1.3rem; }
+    .tabs {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      margin-block: 1.3rem;
+      scroll-margin-top: var(--heading-offset);
+    }
     .tabs a { padding: .7rem .3rem; text-align: center; text-decoration: none; }
     .tabs a + a { border-left: var(--border); }
     .tabs a:hover { text-decoration: underline; }
@@ -162,6 +167,7 @@
     .overview .entry:first-child, .entries:not(.overview) > .entry:last-child:nth-child(odd) { grid-column: 1 / -1; }
     .entry h2, .entry h3 { margin-bottom: .65rem; padding-bottom: .55rem; border-bottom: var(--border); }
     .entry h2, .entry h3 { font-size: 1.07rem; }
+    .panel { min-height: calc(100svh - var(--heading-offset) - 4rem); }
     .panel + .panel { margin-top: 1.4rem; }
     .panel-title { margin-bottom: .85rem; font-size: 1.35rem; }
     dt { font-weight: 650; }
@@ -171,11 +177,12 @@
     @media screen and (prefers-reduced-motion: no-preference) {
       .action { transition: translate 120ms ease-out, box-shadow 120ms ease-out; }
       .action:active { translate: 1px 1px; }
+      .nav a, .tabs a { transition: background-color 140ms ease-out; }
       .entry a { transition: text-decoration-color 140ms ease-out; }
       .panel-entering { animation: panel-fade-in 170ms ease-out; }
     }
     @keyframes panel-fade-in {
-      from { opacity: .45; }
+      from { opacity: .92; }
       to { opacity: 1; }
     }
 
@@ -197,6 +204,7 @@
       .contacts { margin-top: .5rem; }
       .contacts a { padding: 0; }
       .card, .contacts a { border: 0; box-shadow: none; }
+      .panel { min-height: 0; }
       .panel[hidden] { display: block !important; }
       .panel-title { margin: 1rem 0 .3rem; }
       .entry { padding: .35rem 0; break-inside: avoid; }
@@ -343,11 +351,19 @@
   <script>
     const panels = Array.from(document.querySelectorAll(".panel"));
     const navLinks = document.querySelectorAll(".nav a, .tabs a");
+    const sectionLinks = document.querySelectorAll(".brand, .top > a, .nav a, .tabs a");
     const menu = document.querySelector(".mobile-menu");
+    const tabBar = document.querySelector(".tabs");
+    const header = document.querySelector(".top");
+    const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)");
     let currentPanel = null;
+    let cancelScroll = null;
 
     function showSection() {
+      cancelScroll?.();
+      cancelScroll = null;
       const target = document.getElementById(location.hash.slice(1));
+      if (target?.id === "main" && currentPanel) return target;
       const active = target?.closest(".panel") ?? panels[0];
       const changed = currentPanel !== null && active !== currentPanel;
       for (const panel of panels) {
@@ -359,19 +375,47 @@
         if (link.hash === "#" + active.id) link.setAttribute("aria-current", "location");
         else link.removeAttribute("aria-current");
       }
-      if (target && active.contains(target)) target.scrollIntoView();
+      return target;
     }
 
-    menu.addEventListener("click", (event) => {
-      if (event.target.closest("a")) menu.open = false;
-    });
+    function selectSection(event) {
+      if (event.button !== 0 || event.metaKey || event.ctrlKey || event.shiftKey || event.altKey) return;
+      event.preventDefault();
+      cancelScroll?.();
+      cancelScroll = null;
+      const hash = event.currentTarget.hash;
+      if (location.hash !== hash) history.pushState(null, "", hash);
+      if (menu.open) {
+        menu.open = false;
+        menu.querySelector("summary").focus({ preventScroll: true });
+      }
+      if (tabBar.getBoundingClientRect().top >= header.getBoundingClientRect().bottom) {
+        showSection();
+        return;
+      }
+      if (reducedMotion.matches) {
+        tabBar.scrollIntoView({ block: "start" });
+        showSection();
+        return;
+      }
+      // Keep the outgoing panel in place until the scroll reaches the tab bar.
+      document.addEventListener("scrollend", showSection, { once: true });
+      const fallback = window.setTimeout(showSection, 750);
+      cancelScroll = () => {
+        document.removeEventListener("scrollend", showSection);
+        window.clearTimeout(fallback);
+      };
+      tabBar.scrollIntoView({ behavior: "smooth", block: "start" });
+    }
+
+    for (const link of sectionLinks) link.addEventListener("click", selectSection);
     menu.addEventListener("keydown", (event) => {
       if (event.key !== "Escape" || !menu.open) return;
       menu.open = false;
       menu.querySelector("summary").focus();
     });
     window.addEventListener("hashchange", showSection);
-    showSection();
+    showSection()?.scrollIntoView();
   </script>
 </body>
 </html>
